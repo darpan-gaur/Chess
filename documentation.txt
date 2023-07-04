@@ -1,0 +1,12 @@
+# frontend
+
+yarn create vite .
+    --> remove unnecessary files
+    --> add start in package.json
+
+yarn add react react-dom
+
+# backend
+
+npm init -y
+    --> change indes.js to server.js
