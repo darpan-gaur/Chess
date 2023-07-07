@@ -1,9 +1,14 @@
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import HomePage from "./Pages/HomePage";
+
 function App() {
 
   return (
-    <div>
-      Real Time Multiplayer Chess
-    </div>
+    <Router>
+      <Routes>
+        <Route exact path="/" element={<HomePage/>}/>
+      </Routes>
+    </Router>
   )
 }
 
