@@ -1,7 +1,8 @@
 import React from "react";
-import logo from "../Images/logo.jpeg";
-import chessboard from "../Images/Chessboard.png";
+import logo from "../../Images/logo.jpeg";
+import chessboard from "../../Images/Chessboard.png";
 import { Link } from "react-router-dom";
+import "./navbar.css";
 
 const Navbar = () => {
   return (

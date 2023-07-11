@@ -4,7 +4,16 @@ yarn create vite .
     --> remove unnecessary files
     --> add start in package.json
 
-yarn add react react-dom
+yarn add react react-dom (don't know why)
+
+yarn react-router-dom
+
+yarn add sass
+
+yarn add @mui/material @emotion/react @emotion/styled
+
+https://github.com/Clariity/react-chessboard
+yarn add react-chessboard chess.js
 
 # backend
 
