@@ -6,17 +6,17 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
 
-const customDialog = ({open, children, title, contextText, handleContinue}) => {
+const CustomDialog = ({open, children, title, contentText, handleContinue}) => {
   return (
     <Dialog open={open}>
         <DialogTitle>{title}</DialogTitle>
 
         <DialogContent>
             <DialogContentText>
-                {contextText}
+                {contentText}
             </DialogContentText>
         </DialogContent>
-
+        {children}
         <DialogActions>
             <Button onClick={handleContinue}> Continue </Button>
         </DialogActions>
@@ -24,4 +24,4 @@ const customDialog = ({open, children, title, contextText, handleContinue}) => {
   )
 }
 
-export default customDialog
+export default CustomDialog

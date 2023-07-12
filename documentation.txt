@@ -15,7 +15,15 @@ yarn add @mui/material @emotion/react @emotion/styled
 https://github.com/Clariity/react-chessboard
 yarn add react-chessboard chess.js
 
+yarn add socket.io-client
+
 # backend
 
 npm init -y
     --> change indes.js to server.js
+
+yarn add nodemon
+
+yarn add express socket.io 
+
+yarn add uuid

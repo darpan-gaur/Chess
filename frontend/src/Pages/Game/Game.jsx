@@ -1,8 +1,9 @@
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import './game.scss'
 import {Chess} from 'chess.js'
 import {Chessboard} from 'react-chessboard'
-import customDialog from '../../Components/customDialog'
+import CustomDialog from '../../Components/CustomDialog'
+import socket from '../../socket'
 
 const Game = ({players, room, orientation, cleanup}) => {
     const chess = useMemo(() => new Chess(), [])
@@ -40,20 +41,51 @@ const Game = ({players, room, orientation, cleanup}) => {
     )
 
     function onDrop(sourceSquare, targetSquare) {
+        // don't allow other player moves
+        if (chess.turn() !== orientation[0]) return false;
+
+        // don't allow moves if opponent has not joined
+        if (players.length < 2) return false;
+
         const moveData = {
             from: sourceSquare,
             to: targetSquare,
             color: chess.turn(),
-            // promotion: "q",
+            promotion: "q",
         }
 
         const move = makeAMove(moveData);
     
         // illegal move
         if (move === null) return false;
-     
-        return true;
+        
+        socket.emit('move', {
+            move,
+            room,
+        })
+
+        return true;    
       }
+
+    useEffect(() => {
+        socket.on('move', (move) => {
+            makeAMove(move);
+        })
+    }, [makeAMove])
+
+    useEffect(() => {
+        socket.on('playerDisconnected', (player) => {
+            setOver (`${player.username} has disconnected!`)
+        })
+    }, [])
+
+    useEffect ( () => {
+        socket.on('closeRoom', ({roomId}) => {
+            if (roomId === room) {
+                cleanup();
+            }
+        })
+    }, [room, cleanup])
 
     return (
         <div className="game">
@@ -61,16 +93,19 @@ const Game = ({players, room, orientation, cleanup}) => {
                 <Chessboard 
                     position={fen}
                     onPieceDrop={onDrop}
-                    boardWidth={560}
+                    boardOrientation={orientation}
+                    // boardWidth={560}
                 />
             </div>
 
-            <customDialog 
+            <CustomDialog 
                 open = {Boolean(over)}
                 title = {over}
                 contextText = {over}
                 handleContinue = {() => {
-                    setOver("")
+                    // setOver("")
+                    socket.emit('closeRoom', {roomId: room})
+                    cleanup();
                 }}
             />
         </div>
