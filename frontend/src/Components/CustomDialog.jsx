@@ -5,6 +5,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
+// go to https://mui.com/material-ui/react-dialog/, for reference
 
 const CustomDialog = ({open, children, title, contentText, handleContinue}) => {
   return (

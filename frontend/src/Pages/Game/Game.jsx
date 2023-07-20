@@ -5,6 +5,12 @@ import {Chessboard} from 'react-chessboard'
 import CustomDialog from '../../Components/CustomDialog'
 import socket from '../../socket'
 
+/*
+for configuring chessboard, learn more from https://github.com/Clariity/react-chessboard
+for chess logic and stuff, learn more from 
+
+*/
+
 const Game = ({players, room, orientation, cleanup}) => {
     const chess = useMemo(() => new Chess(), [])
     const [fen, setFen] = useState(chess.fen())
@@ -59,6 +65,7 @@ const Game = ({players, room, orientation, cleanup}) => {
         // illegal move
         if (move === null) return false;
         
+        // send move to server
         socket.emit('move', {
             move,
             room,
